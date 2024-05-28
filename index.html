@@ -13,25 +13,22 @@
     <script>
         const vm = Vue.createApp({
             data() {
-                return {  
-                    counter: 0,
-                    evt: "submit"                                    
+                return {
+                    text: "Hola Vue"                                      
                 };
             },
             methods: {
-                increment() {
-                    this.counter++;
-                },
-                submit(e){
-                    // console.log(e);
-                    e.preventDefault();                    
-                    this.counter++;
+                input(e){
+                    // console.log(e.target.value);
+                    this.text = e.target.value;
                 }
             },
-            // template: `<button v-on:click="increment">{{counter}}</button>`,            
-            // template: `<button v-on:keyup="increment">{{counter}}</button>`,            
-            // template: `<form v-on:submit.prevent.stop="submit"><button>{{counter}}</button></form>`,            
-            template: `<form v-on:[evt]="submit"><button>{{counter}}</button></form>`,            
+            template: `
+                <p>{{ text }}</p>
+                <input type="text" v-on:change="input" /> <br /><br />
+                <input type="text" @input="input" :value="text" /> <br /><br />
+                <input type="text" v-model="text" /> <br /><br />
+            `,            
         }).mount('#app');
         console.log(vm);
     </script>
