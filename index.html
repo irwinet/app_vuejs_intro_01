@@ -7,20 +7,22 @@
 </head>
 <body>
     
-    <div id="app"></div>
+    <div id="app">
+        
+    </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
         const vm = Vue.createApp({
             data() {
-                return {
-                    // text: 'Hola VueJS v3',
-                    text: '<p>Hola VueJS v3</p>',
+                return {   
+                    img: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Vue.png",
+                    attr: "src",                  
                 };
             },
-            // template: `<div>{{ text }}</div>`,
-            // template: `<div v-once v-text="text"></div>`,
-            template: `<div v-html="text"></div>`,
+            // template: `<img v-bind:["src"]="img" v-bind:alt="img" width="250px" />`,            
+            // template: `<img v-bind:["src"]="img" width="250px" />`,            
+            template: `<img v-bind:[attr]="img" width="250px" />`,            
         }).mount('#app');
         console.log(vm);
     </script>
