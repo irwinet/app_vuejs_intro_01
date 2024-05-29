@@ -17,36 +17,21 @@
                     text: "Hola Vue"                                      
                 };
             },
-            provide() {
-                return {
-                    otroTexto: this.text,
-                }
-            },
-            // provide: {
-            //     otroTexto: "Hola Mundo"
-            // },
             template: `
-                <div>{{ text }}</div>
-                <otro />
+                <v-button ref="elemento" :label="text" />
             `,            
         });
 
-        app.component("otro", {
-            template: `<tercer />`
-        });
-
-        app.component("tercer", {
-            // inject: ["otroTexto"],
-            inject: {
-                otroTexto: {
-                    from: this.provide
-                }
-            },
-            template: `<div>{{otroTexto}}</div>`
+        app.component("v-button", {
+            props: ["label"],
+            template: `<button>{{label}}</button>`
         });
 
         const vm = app.mount('#app');
-        console.log(vm);
+        console.log(vm.$root);
+        console.log(vm.$el);
+        console.log(vm.$refs.elemento);
+        console.log(vm.$props);
     </script>
 </body>
 </html>
