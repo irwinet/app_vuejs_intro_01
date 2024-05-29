@@ -28,7 +28,7 @@
             border-radius: 12px;
         }
 
-        .close {
+        .closed {
             background-color: #eca1a6;
         }
 
@@ -69,12 +69,33 @@
                 },                
             },
             computed: {
+                styles2() {
+                    return this.open ? ["open"] : ["closed"];
+                },
                 label(){
                     return this.open ? "Cerrar" : "Abrir"
                 }
             },
+            // template: `
+            //     <div class="container" :class="styles">
+            //         <div>{{ text }}</div>
+            //         <button @click="open = !open">{{ label }}</button>
+            //     </div>
+            // `,   
+            // template: `
+            //     <div class="container" :class="['closed']">
+            //         <div>{{ text }}</div>
+            //         <button @click="open = !open">{{ label }}</button>
+            //     </div>
+            // `, 
+            // template: `
+            //     <div class="container" :class="{ 'open': open, 'closed': !open }">
+            //         <div>{{ text }}</div>
+            //         <button @click="open = !open">{{ label }}</button>
+            //     </div>
+            // `,
             template: `
-                <div class="container" :style="styles">
+                <div class="container" :class="styles2">
                     <div>{{ text }}</div>
                     <button @click="open = !open">{{ label }}</button>
                 </div>
