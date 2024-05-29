@@ -14,12 +14,21 @@
         const app = Vue.createApp({
             data() {
                 return { 
-                    items: ["uno","dos","tres",,]                                     
+                    items: ["uno","dos","tres"]                                     
                 };
+            },
+            methods: {
+                remove(i){
+                    return this.items = this.items.filter((el,index) => index!==i);
+                }
             },
             template: `
                 <ul>
-                    <v-item v-for="item in items" v-bind:text="item"></v-item>                    
+                    <v-item 
+                        v-for="(item, i) in items" 
+                        v-bind:text="item"
+                        v-on:remove="remove(i)"
+                    />                 
                 </ul>
             `,            
         });
@@ -27,13 +36,15 @@
         app.component("v-item", {
             // props: ["text"],
             props: {
-                // text: String,
-                text: {
-                    default: "texto vacio"
+                text: String,                
+            },
+            methods: {
+                rm() {
+                    this.$emit("remove", {});
                 }
             },
             // template: `<li><slot></slot></li>`,
-            template: `<li>{{text}}</li>`,
+            template: `<li v-on:click="rm">{{text}}</li>`,
         });
 
         const vm = app.mount('#app');
