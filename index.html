@@ -14,22 +14,26 @@
         const vm = Vue.createApp({
             data() {
                 return {
-                    firstName: 'Irwin',
-                    lastName: "Estrada",
-                    now: new Date()                               
+                    text: "Puerta cerrada",
+                    open: false                                      
                 };
             },
-            computed: {
-                fullName() {
-                    return this.firstName + ' ' + this.lastName;
+            watch: {
+                text2(value, old) {
+                    console.log("Watcher!", value, old, this.text);                    
                 },
-                today() {
-                    return this.now.toLocaleDateString();
+                open(value) {
+                    this.text = (value) ? "Puerta abierta" : "Puerta cerrada"
+                },                
+            },
+            computed: {
+                label(){
+                    return this.open ? "Cerrar" : "Abrir"
                 }
             },
             template: `
-                <div>{{ fullName }}</div>
-                <div>{{ today }}</div>
+                <div>{{ text }}</div>
+                <button @click="open = !open">{{ label }}</button>
             `,            
         }).mount('#app');
         console.log(vm);
