@@ -46,58 +46,43 @@
         const vm = Vue.createApp({
             data() {
                 return {
-                    text: "Puerta cerrada",
+                    text: "Accede a tu cuenta",
                     open: false,
-                    styles: {
-                        backgroundColor: "#eca1a6",
-                    }                                      
+                    username: ""                                   
                 };
             },
             watch: {
-                text2(value, old) {
-                    console.log("Watcher!", value, old, this.text);                    
-                },
                 open(value) {
-                    // this.text = (value) ? "Puerta abierta" : "Puerta cerrada"
                     if(value) {
-                        this.text = "Puerta abierta";
-                        this.styles.backgroundColor = "#b5e7a0";
+                        this.text = "Cierra sesión";
                     } else {
-                        this.text = "Puerta cerrada";
-                        this.styles.backgroundColor = "#eca1a6";
+                        this.text = "Accede a tu cuenta";
+                        this.username = "";
                     }
                 },                
             },
             computed: {
-                styles2() {
-                    return this.open ? ["open"] : ["closed"];
-                },
                 label(){
-                    return this.open ? "Cerrar" : "Abrir"
-                }
+                    return this.open ? "Salir" : "Acceder"
+                },
+                styles() {
+                    return this.open ? ["open"] : ["closed"];
+                },                
             },
-            // template: `
-            //     <div class="container" :class="styles">
-            //         <div>{{ text }}</div>
-            //         <button @click="open = !open">{{ label }}</button>
-            //     </div>
-            // `,   
-            // template: `
-            //     <div class="container" :class="['closed']">
-            //         <div>{{ text }}</div>
-            //         <button @click="open = !open">{{ label }}</button>
-            //     </div>
-            // `, 
-            // template: `
-            //     <div class="container" :class="{ 'open': open, 'closed': !open }">
-            //         <div>{{ text }}</div>
-            //         <button @click="open = !open">{{ label }}</button>
-            //     </div>
-            // `,
             template: `
-                <div class="container" :class="styles2">
-                    <div>{{ text }}</div>
-                    <button @click="open = !open">{{ label }}</button>
+                <div class="container" :class="styles">
+                    <h2>{{ text }}</h2>
+                    <div v-if="open">
+                        <p>Hola, {{ username }}</p>
+                    </div>
+                    <div v-else>
+                        <label>Username: </label>
+                        <input type="text" v-model="username" />
+                    </div>
+                    <button @click="open = !open">
+                        <div v-if="!open">Acceder</div>
+                        <div v-else>Salir</div>
+                    </button>
                 </div>
             `,            
         }).mount('#app');
